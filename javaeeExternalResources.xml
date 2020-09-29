@@ -1,0 +1,8 @@
+<application>
+  <component name="ExternalResourceManagerImpl">
+    <resource url="http://www.springframework.org/schema/tx/spring-tx.xsd" location="$USER_HOME$/Library/Caches/IntelliJIdea2019.2/extResources/bc20ae51_spring-tx.xsd" />
+    <resource url="https://www.springframework.org/schema/beans/spring-beans-4.3.xsd" location="$USER_HOME$/Library/Caches/IntelliJIdea2019.2/extResources/38fbf776_spring-beans-4.3.xsd" />
+    <resource url="https://www.springframework.org/schema/tool/spring-tool-4.3.xsd" location="$USER_HOME$/Library/Caches/IntelliJIdea2019.2/extResources/93b79a08_spring-tool-4.3.xsd" />
+    <ignored-resource url="http://mybatis.org/dtd/mybatis-3-mapper.dtd" />
+  </component>
+</application>
