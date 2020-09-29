@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xymall.baby.dao.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.xymall.baby.entity.User">
+        <id column="userId" jdbcType="INTEGER" property="userId" />
+        <result column="username" jdbcType="VARCHAR" property="userName" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
+        <result column="active" jdbcType="boolean" property="active" />
+    </resultMap>
+    <select id="login" resultMap="BaseResultMap" >
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where username=#{userName,jdbc.type=VARCHAR} and password=#{password,jdbc.type=VARCHAR} and active=true;
+    </select>
+    <sql id="Base_Column_List">
+        username,password,email,active
+    </sql>
+
+</mapper>
