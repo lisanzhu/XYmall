@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="user/header::head-fragment('辛愉商城-个人中心','personal')">
+</head>
+<link th:href="@{/mall/css/bootstrap-modal.css}" rel="stylesheet">
+<body>
+<header th:replace="user/header::header-fragment"></header>
+<!-- nav -->
+<nav th:replace="user/header::nav-fragment"></nav>
+
+<!-- personal -->
+<div id="personal">
+    <div class="self-info center">
+
+        <!-- sidebar -->
+        <div th:replace="user/personal-sidebar::sidebar-fragment"></div>
+
+        <div class="intro fr">
+            <div class="grzlbt ml40">我的资料 <a href="javascript:openUpdateModal();"
+                                             style="color:#1baeae;margin-left: 600px;">更改个人信息</a>
+            </div>
+            <div class="info_item ml40"><span>用户名</span><span
+                    th:text="${session.XYmallUser.userName}">XY-mall</span>
+            </div>
+            <div class="info_item ml40"><span>密码</span><span>******</span>
+            </div>
+
+            <div class="info_item ml40"><span>收货信息</span><span
+                    th:text="${session.XYmallUser.address==''?'无':session.XYmallUser.address}">XYmall</span></span>
+            </div>
+
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="content">
+        <!-- 模态框（Modal） -->
+        <div class="modal fade" id="personalInfoModal" tabindex="-1" role="dialog"
+             aria-labelledby="personalInfoModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h6 class="modal-title" id="personalInfoModalLabel">个人信息修改</h6>
+                    </div>
+
+                    <div class="modal-body">
+                        <form id="personalInfoForm">
+                            <div class="form-group">
+                                <label for="address" class="control-label">收货信息:</label>
+                                <input type="hidden" id="userId" th:value="${session.XYmallUser.userId}">
+                                <input type="text" class="form-control" id="address" name="address"
+                                       placeholder="请输入收货信息" th:value="${session.XYmallUser.address}"
+                                       required="true">
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" id="saveButton">确认</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal -->
+    </div>
+</div>
+
+<div th:replace="user/footer::footer-fragment"></div>
+
+<!-- jQuery -->
+<script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
+<!-- Bootstrap 3 -->
+<script th:src="@{/mall/js/bootstrap3.js}"></script>
+<script th:src="@{/mall/js/search.js}" type="text/javascript"></script>
+<script th:src="@{/admin/plugins/sweetalert/sweetalert.min.js}"></script>
+<script type="text/javascript">
+    function openUpdateModal() {
+        $('#personalInfoModal').modal('show');
+    }
+
+    //绑定modal上的保存按钮
+    $('#saveButton').click(function () {
+        var address = $("#address").val();
+        var userId = $("#userId").val();
+        var data = {
+            "userId": userId,
+            "address": address,
+        };
+        $.ajax({
+            type: 'POST',//方法类型
+            url: '/personal/updateInfo',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function (result) {
+                if (result.resultCode == 200) {
+                    $('#personalInfoModal').modal('hide');
+                    window.location.reload();
+                } else {
+                    $('#personalInfoModal').modal('hide');
+                    alert(result.message);
+                }
+                ;
+            },
+            error: function () {
+                alert('操作失败');
+            }
+        });
+    });
+</script>
+</body>
+</html>

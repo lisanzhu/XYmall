@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<header th:replace="admin/header::header-fragment"></header>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+
+    <!-- Main Sidebar Container -->
+<!--     引入页面头header-fragment -->
+    <div th:replace="admin/header::header-nav"></div>
+    <!-- 引入工具栏sidebar-fragment -->
+    <div th:replace="admin/sidebar::sidebar-fragment(${path})"></div>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" >
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <div class="content">
+            <div class="card card-primary card-outline">
+                <div class="card-header">
+                    <h3 class="card-title">首页</h3>
+                </div> <!-- /.card-body -->
+                <div class="card-body">
+                    <div class="panel panel-default">
+                        <div style="padding: 10px 0 20px 10px;">
+                            <a href="https://github.com/lisanzhu/XYmall" target="_blank">
+                                具体描述:本实验实现了一个类似淘宝的电商网站，本网站大体分为两部分：用户系统、管理系统。
+                                用户系统：用户能够在用户系统中进行登录注册注销的操作，在进入商城系统之后，可以浏览到本系统中所有有库存并且已经上线的商品，鼠标滑过对应分类的时候，自动展示对应分类下所有的子分类，当鼠标点击选择某一三级分类的时候，能够展示此分类下所有的商品，通过加入购物车的操作来实现一次能够结算多条商品，点进购物车以后有结算功能，结算并且支付成功以后系统会将订单呈现在管理系统的订单管理中，当管理系统进行出单之后，便可以等待收货。同时用户可以在个人订单中进行实时监控对应订单目前的状态，用户也可以在用户中心修改个人地址。
+                                后台管理系统：管理员可以在后台进行对应首页的轮播图配置。并且后台能够对商品进行上传、上架、下架、修改的操作。同时管理员也可以进行所有三级分类的增加删除修改操作。管理员可以对用户进行禁用以及解除禁用的操作。管理员可以对用户系统中用户下的订单进行配货、出库、删除订单、修改价格的操作。管理员也可以进行本账户密码的修改、注销。
+
+                            </a>
+                            <p><em>声明:本实验一定程度上参考了新蜂商城的代码实现，在此致谢十三，但本商城基本代码全由李泓锦编写，部分功能有一定程度上增删改，本网站仅用于学习用途。</em>
+                            </p>
+                            <ol>未来期望:在商城项目基本代码编写实现之后，希望我能够进行细节上更进一步剖析:
+                                <li>为什么使用Mybatis作为本项目的orm框架？它相比与JPA等其他框架的优势是什么？</li>
+                                <li>除了Mybatis直接操作数据库之外还有什么方法可以操作数据库？是否可以使用消息队列进行流量削峰？</li>
+                                <li>如何使用Redis进行优化？他能解决什么问题？</li>
+                                <li>对于本商城，本地缓存是否有用武之地？</li>
+                            </ol>
+                            <p style="color: purple">感悟及总结:本项目是我第一次实现的完整项目，部分代码借鉴新蜂商城，但是我却还是收获到了许多知识
+                                ，也感谢我的女朋友辛愉在我功能实现完毕之后，为我测试出了许多bug，虽然现在也不能保证一个bug没有...过程充满了艰辛但是结果总归是好的。</p>
+
+                            <strong style="color:deeppink">生活虽然辛苦，但却充满愉快。</strong>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- jQuery -->
+<script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
+<!-- jQuery UI 1.11.4 -->
+<script th:src="@{/admin/plugins/jQueryUI/jquery-ui.min.js}"></script>
+<!-- Bootstrap 4 -->
+<script th:src="@{/admin/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/admin/dist/js/adminlte.min.js}"></script>
+</body>
+
+</html>

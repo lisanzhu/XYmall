@@ -9,4 +9,5 @@ public class User {
     private String email;
     private boolean active;
     private long userId;
+    private String address;
 }
