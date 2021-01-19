@@ -13,4 +13,15 @@
       1.为什么使用Mybatis作为本项目的orm框架？它相比与JPA等其他框架的优势是什么？
       2.除了Mybatis直接操作数据库之外还有什么方法可以操作数据库？是否可以使用消息队列进行流量削峰？
       3.如何使用Redis进行优化？他能解决什么问题？
+      
+      项目地址：http://fullofhappy.club   2020.3.25过期
+      
+      后台系统：http://fullofhappy.club/admin
+      
+      后台系统账号：lihongjin 密码：200906
+      
+      前台系统：http://fullofhappy.club/index
+      
+      前台系统账号：test1  密码：123456
+      
                                
