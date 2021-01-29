@@ -9,6 +9,8 @@ import com.xymall.baby.dao.OrderItemMapper;
 import com.xymall.baby.dao.OrderMapper;
 import com.xymall.baby.dao.ShoppingCartItemMapper;
 import com.xymall.baby.entity.*;
+import com.xymall.baby.redis.OrderKey;
+import com.xymall.baby.redis.RedisService;
 import com.xymall.baby.service.OrderService;
 import com.xymall.baby.vo.*;
 
@@ -37,6 +39,8 @@ public class OrderServiceImpl implements OrderService {
     private ShoppingCartItemMapper shoppingCartItemMapper;
     @Autowired
     private GoodsManageMapper goodsManageMapper;
+    @Autowired
+    private RedisService redisService;
 
     @Override
     public PageResult getOrdersPage(PageQueryUtil pageUtil) {
@@ -266,7 +270,7 @@ public class OrderServiceImpl implements OrderService {
     public OrderDetailVO getOrderDetailByOrderNo(String orderNo, Long userId) {
         Order order = orderMapper.selectByOrderNo(orderNo);
         if (order != null) {
-            //todo 验证是否是当前userId下的订单，否则报错
+//            //todo 验证是否是当前userId下的订单，否则报错
             List<OrderItem> orderItems = orderItemMapper.selectByOrderId(order.getOrderId());
             //获取订单项数据
             if (!CollectionUtils.isEmpty(orderItems)) {
@@ -373,6 +377,12 @@ public class OrderServiceImpl implements OrderService {
         }
         return ServiceResultEnum.ORDER_NOT_EXIST_ERROR.getResult();
     }
+
+    public Order getOrderByUserIdGoodsId(long userId, long goodsId) {
+        //return orderDao.getMiaoshaOrderByUserIdGoodsId(userId, goodsId);
+        return redisService.get(OrderKey.getMiaoshaOrderByUidGid, ""+userId+"_"+goodsId, Order.class);
+    }
+
 
     @Override
     public List<OrderItemVO> getOrderItems(Long id) {
