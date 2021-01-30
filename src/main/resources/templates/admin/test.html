@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<!--    <script src="https://cdn.tiny.cloud/1/sk7019lbv5qghegt0zsuij1sa280mof15ugriwarlu8ftujr/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>-->
+</head>
+<body>
+<form method="post">
+ <textarea id="mytextarea">test</textarea>
+</form>
+<script src="../../static/admin/plugins/tinymce/tinymce.js"></script>
+<!--初始化tinymce-->
+<script type="text/javascript">
+    tinymce.init({
+        selector: '#mytextarea',
+        language: 'zh_CN',
+        directionality: 'rtl',
+        browser_spellcheck: true,
+        contextmenu: false,
+        plugins: [
+            "advlist autolink lists link image charmap print preview anchor",
+            "searchreplace visualblocks code fullscreen",
+            "insertdatetime media table contextmenu paste imagetools wordcount",
+            "code"
+        ],
+        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | code",
+    });
+    /*tinymce.activeEditor.uploadImages(function(success) {
+        $.post('ajax/post.do', tinymce.activeEditor.getContent()).done(function() {
+            console.log("Uploaded images and posted content as an ajax request.");
+        });
+    });*/
+</script>
+
+</body>
+</html>

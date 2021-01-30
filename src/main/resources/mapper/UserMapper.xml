@@ -3,20 +3,122 @@
 <mapper namespace="com.xymall.baby.dao.UserMapper">
 
     <resultMap id="BaseResultMap" type="com.xymall.baby.entity.User">
-        <id column="userId" jdbcType="INTEGER" property="userId" />
+        <id column="id" jdbcType="INTEGER" property="userId" />
         <result column="username" jdbcType="VARCHAR" property="userName" />
         <result column="password" jdbcType="VARCHAR" property="password" />
         <result column="email" jdbcType="VARCHAR" property="email" />
-        <result column="active" jdbcType="boolean" property="active" />
+        <result column="active" jdbcType="BOOLEAN" property="active" />
+        <result column="address" jdbcType="VARCHAR" property="address"/>
     </resultMap>
     <select id="login" resultMap="BaseResultMap" >
         select
         <include refid="Base_Column_List"/>
         from user
-        where username=#{userName,jdbc.type=VARCHAR} and password=#{password,jdbc.type=VARCHAR} and active=true;
+        where username=#{userName} and password=#{password} and active=true;
     </select>
     <sql id="Base_Column_List">
-        username,password,email,active
+        id,username,password,email,active,address
     </sql>
+    <insert id="register">
+        insert into user(username,password,email,verifyCode,active) values (#{userName},#{password},#{email},null,true);
+    </insert>
 
+    
+
+    <select id="findUserList" resultMap="BaseResultMap" parameterType="Map">
+        select <include refid="Base_Column_List"/>
+        from user
+        where 1=1
+        order by id desc
+<!--        where userName is not null-->
+        <if test="start!=null and limit!=null">
+            limit
+            #{start},
+            #{limit}
+        </if>
+    </select>
+
+    <select id="countUserNum" resultType="int">
+        select count(*) from user
+        where username is not null;
+    </select>
+
+    <update id="lockUser" >
+        update user set active=#{lockStatus}
+        where id in
+        <foreach collection="ids" item="id" close=")" separator="," open="(">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="selectByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where username = #{userName} and active = true
+    </select>
+
+    <select id="queryById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where id = #{userId,jdbcType=BIGINT} and active = 1
+    </select>
+
+    <insert id="insertSelective" parameterType="com.xymall.baby.entity.User">
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                id,
+            </if>
+            <if test="userName != null">
+                username,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="active != null">
+                active,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="active != null">
+                #{active,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.xymall.baby.entity.User">
+        update user
+        <set>
+            <if test="userName != null">
+                username = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="active != null">
+                active = #{active,jdbcType=TINYINT},
+            </if>
+        </set>
+        where id = #{userId,jdbcType=BIGINT}
+    </update>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where id = #{userId,jdbcType=BIGINT} and active = 1
+    </select>
 </mapper>
